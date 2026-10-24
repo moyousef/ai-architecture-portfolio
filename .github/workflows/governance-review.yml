@@ -1,0 +1,24 @@
+name: Architecture Governance Documentation Check
+on:
+  pull_request:
+    paths:
+      - 'docs/01-marketing-ai-governance-pack.md'
+      - 'diagrams/marketing-ai-governance.drawio'
+      - 'scripts/check_governance.py'
+      - '.github/workflows/governance-review.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/01-marketing-ai-governance-pack.md'
+      - 'diagrams/marketing-ai-governance.drawio'
+      - 'scripts/check_governance.py'
+      - '.github/workflows/governance-review.yml'
+jobs:
+  governance-guardrail:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate governance documentation
+        run: python3 scripts/check_governance.py
